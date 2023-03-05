@@ -1,4 +1,5 @@
 var callAPI = new callApi();
+var validation = new Validation();
 function getEle(id) {
     return document.getElementById(id);
 }
@@ -7,7 +8,7 @@ function getListProduct() {
     callAPI
         .layDanhSachSP()
         .then(function (result) {
-            renderEm(result.data)
+            renderData(result.data)
         })
         .catch(function (error) {
             console.error(error);
@@ -31,9 +32,19 @@ function handleAdd() {
     var desc = getEle("MoTa").value;
     var type = getEle("Type").value;
 
-    var product = new product(name, price, screen, backCamera, frontCamera, img, desc, type);
+    var isValid = true;
+    isValid &= validation.kiemTraRong(name, "notiName", "Please input name");
+    isValid &= validation.kiemTraRong(name, "notiPrice", "Please input price");
+    isValid &= validation.kiemTraRong(name, "notiScreen", "Please input screen");
+    isValid &= validation.kiemTraRong(name, "notiBackCamera", "Please input Back Camera");
+    isValid &= validation.kiemTraRong(name, "notiFrontCamera", "Please input Front Camera");
+    isValid &= validation.kiemTraRong(name, "notiImage", "Please input Image");
+    isValid &= validation.kiemTraRong(name, "notiDesc", "Please input Description");
+    isValid &= validation.kiemTraRong(name, "notiType", "Please input Type");
+    if (!isValid) return null;
+    var pd = new product(name, price, screen, backCamera, frontCamera, img, desc, type);
     callAPI
-        .themSP(product)
+        .themSP(pd)
         .then(function (result) {
             getListProduct();
             document.querySelector("#myModal .close").click();
@@ -41,6 +52,13 @@ function handleAdd() {
         .catch(function (error) {
             console.error(error);
         });
+        getEle("TenSP").value ="";
+        getEle("GiaSP").value ="";
+        getEle("ManHinhSP").value ="";
+        getEle("BackCamera").value ="";
+        getEle("FrontCamera").value ="";
+        getEle("Image").value ="";
+        getEle("MoTa").value ="";
 }
 
 function handleDelete(id) {
@@ -86,6 +104,16 @@ function handleUpdate(id) {
     var desc = getEle("MoTa").value;
     var type = getEle("Type").value;
 
+    var isValid = true;
+    isValid &= validation.kiemTraRong(name, "notiName", "Please input name");
+    isValid &= validation.kiemTraRong(name, "notiPrice", "Please input price");
+    isValid &= validation.kiemTraRong(name, "notiScreen", "Please input screen");
+    isValid &= validation.kiemTraRong(name, "notiBackCamera", "Please input Back Camera");
+    isValid &= validation.kiemTraRong(name, "notiFrontCamera", "Please input Front Camera");
+    isValid &= validation.kiemTraRong(name, "notiImage", "Please input Image");
+    isValid &= validation.kiemTraRong(name, "notiDesc", "Please input Description");
+    isValid &= validation.kiemTraRong(name, "notiType", "Please input Type");
+    if (!isValid) return null;
     var pd = new product(name, price, screen, backCamera, frontCamera, img, desc, type);
     callAPI
         .suaSP(id, pd)
@@ -97,7 +125,7 @@ function handleUpdate(id) {
             console.error(error);
         });
 }
-function renderEm(data) {
+function renderData(data) {
     console.log(data);
     var content = "";
     data.forEach(function (product) {

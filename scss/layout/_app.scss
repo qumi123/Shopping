@@ -1,0 +1,9 @@
+#app{
+    .nav-cart{
+        display: flex;
+        justify-content: flex-end;
+        .btn{
+            font-size: 2rem;
+        }
+    }
+}

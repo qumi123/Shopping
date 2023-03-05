@@ -2,6 +2,17 @@
   margin: 0;
   padding: 0;
   box-sizing: border-box;
+}
+
+html, body {
   font-family: "Roboto", sans-serif;
-  background: linear-gradient(to left, #8942a8, #ba382f);
+  background: linear-gradient(to left, #8c42a2, #b53939);
+}
+
+#app .nav-cart {
+  display: flex;
+  justify-content: flex-end;
+}
+#app .nav-cart .btn {
+  font-size: 2rem;
 }/*# sourceMappingURL=style.css.map */
